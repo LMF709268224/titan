@@ -71,14 +71,13 @@ func (m *Manager) startValidate() error {
 	vrs := m.PairValidatorsAndValidatableNodes()
 
 	vReqs, dbInfos := m.getValidationDetails(vrs)
-	if vReqs == nil {
-		return xerrors.New("getValidationDetails map is null")
+	if len(vReqs) == 0 {
+		return nil
 	}
 
 	err := m.nodeMgr.SaveValidationResultInfos(dbInfos)
 	if err != nil {
-		log.Errorf("SaveValidationResultInfos err:%s", err.Error())
-		return nil
+		return err
 	}
 
 	for nodeID, reqs := range vReqs {

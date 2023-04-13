@@ -71,3 +71,36 @@ func TestBucket(t *testing.T) {
 		t.Logf("mh:%s", asset.String())
 	}
 }
+
+func TestAssetView(t *testing.T) {
+	assetsView, err := newAssetsView("C:/Users/aaa/.titancandidate-1/storage/assets-view", 128)
+	if err != nil {
+		t.Errorf("new assets view error:%s", err.Error())
+		return
+	}
+
+	cidStr := "QmTcAg1KeDYJFpTJh3rkZGLhnnVKeXWNtjwPufjVvwPTpG"
+	root, err := cid.Decode(cidStr)
+	if err != nil {
+		t.Errorf("Decode cid error:%s", err.Error())
+		return
+	}
+	if err := assetsView.addAsset(context.Background(), root); err != nil {
+		t.Errorf("add asset error:%s", err.Error())
+		return
+	}
+
+	if topHash, err := assetsView.getTopHash(context.Background()); err != nil {
+		t.Errorf("get top Hash error:%s", err.Error())
+		return
+	} else {
+		t.Logf("topHash: %s", topHash)
+	}
+
+	if bucketHashes, err := assetsView.getBucketHashes(context.Background()); err != nil {
+		t.Errorf("get bucketHashes error:%s", err.Error())
+		return
+	} else {
+		t.Logf("bucketHashes: %#v", bucketHashes)
+	}
+}

@@ -109,7 +109,7 @@ var runCmd = &cli.Command{
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Required: true,
-			Name:     "device-id",
+			Name:     "node-id",
 			Usage:    "example: --device-id=b26fb231-e986-42de-a5d9-7b512a35543d",
 			Value:    "",
 		},
@@ -179,7 +179,7 @@ var runCmd = &cli.Command{
 
 		privateKey, err := loadPrivateKey(cctx.String("key-path"), r)
 		if err != nil {
-			return err
+			return xerrors.Errorf("load private key error: %w", err)
 		}
 
 		connectTimeout, err := time.ParseDuration(edgeCfg.Timeout)
@@ -202,12 +202,12 @@ var runCmd = &cli.Command{
 
 		url, err := getSchedulerURL(cctx, nodeID, areaID, edgeCfg.Locator)
 		if err != nil {
-			return err
+			return xerrors.Errorf("get scheduler url %w", err)
 		}
 
 		schedulerAPI, closer, err := newSchedulerAPI(cctx, url, nodeID, privateKey)
 		if err != nil {
-			return err
+			return xerrors.Errorf("new scheduler api %w", err)
 		}
 		defer closer()
 
@@ -480,7 +480,7 @@ func newSchedulerAPI(cctx *cli.Context, schedulerURL, nodeID string, privateKey 
 	if err != nil {
 		return nil, nil, err
 	}
-	log.Infof("scheduler url:%s, token:%s", schedulerURL, token)
+	log.Debugf("scheduler url:%s, token:%s", schedulerURL, token)
 
 	if err := os.Setenv("SCHEDULER_API_INFO", token+":"+schedulerURL); err != nil {
 		log.Errorf("set env error: %s", err.Error())

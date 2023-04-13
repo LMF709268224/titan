@@ -51,6 +51,9 @@ func (av *assetsView) getTopHash(ctx context.Context) (string, error) {
 	key := ds.NewKey(keyOfTopHash)
 	val, err := av.ds.Get(ctx, key)
 	if err != nil {
+		if err == ds.ErrNotFound {
+			return "", nil
+		}
 		return "", err
 	}
 
@@ -80,6 +83,9 @@ func (av *assetsView) getBucketHashes(ctx context.Context) (map[uint32]string, e
 	key := ds.NewKey(keyOfBucketHashes)
 	val, err := av.ds.Get(ctx, key)
 	if err != nil {
+		if err == ds.ErrNotFound {
+			return make(map[uint32]string), nil
+		}
 		return nil, err
 	}
 

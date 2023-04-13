@@ -34,6 +34,9 @@ func (c *blockCount) storeBlockCount(ctx context.Context, root cid.Cid, blockCou
 func (c *blockCount) getBlockCount(ctx context.Context, root cid.Cid) (uint32, error) {
 	val, err := c.ds.Get(ctx, ds.NewKey(root.Hash().String()))
 	if err != nil {
+		if err == ds.ErrNotFound {
+			return 0, nil
+		}
 		return 0, err
 	}
 

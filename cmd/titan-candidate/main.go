@@ -116,7 +116,7 @@ var runCmd = &cli.Command{
 	Flags: []cli.Flag{
 		&cli.StringFlag{
 			Required: true,
-			Name:     "device-id",
+			Name:     "node-id",
 			Usage:    "example: --device-id=b26fb231-e986-42de-a5d9-7b512a35543d",
 			Value:    "",
 		},

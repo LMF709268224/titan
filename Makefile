@@ -10,7 +10,7 @@ GOCC?=go
 GOVERSION:=$(shell $(GOCC) version | tr ' ' '\n' | grep go1 | sed 's/^go//' | awk -F. '{printf "%d%03d%03d", $$1, $$2, $$3}')
 ifeq ($(shell expr $(GOVERSION) \< 1017001), 1)
 $(warning Your Golang version is go$(shell expr $(GOVERSION) / 1000000).$(shell expr $(GOVERSION) % 1000000 / 1000).$(shell expr $(GOVERSION) % 1000))
-$(error Update Golang to version to at least 1.17.1)
+$(error Update Golang to version to at least 1.18)
 endif
 
 # git modules that need to be loaded
@@ -70,7 +70,7 @@ api-gen:
 cfgdoc-gen:
 	$(GOCC) run ./node/config/cfgdocgen > ./node/config/doc_gen.go
 
-build: titan-scheduler titan-candidate titan-candidate-arm titan-edge titan-edge-arm titan-locator
+build: titan-scheduler titan-candidate titan-edge titan-locator
 .PHONY: build
 
 edge-image:

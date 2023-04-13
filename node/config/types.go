@@ -45,8 +45,9 @@ type EdgeCfg struct {
 // CandidateCfg candidate node config
 type CandidateCfg struct {
 	EdgeCfg
-	TCPSrvAddr       string
-	IpfsAPIURL       string
+	TCPSrvAddr string
+	IpfsAPIURL string
+	// seconds
 	ValidateDuration int
 }
 

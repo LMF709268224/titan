@@ -110,9 +110,9 @@ func (ds *DataSync) performDataSync(nodeID string) error {
 	defer cancle()
 
 	if ok, err := node.CompareTopHash(ctx, topChecksum); err != nil {
-		return err
-	} else if ok {
 		return xerrors.Errorf("compare top hash %w", err)
+	} else if ok {
+		return nil
 	}
 
 	checksums, err := ds.fetchBucketHashes(nodeID)

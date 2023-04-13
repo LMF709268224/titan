@@ -68,9 +68,10 @@ func DefaultCandidateCfg() *CandidateCfg {
 		FetchBatch:        5,
 	}
 	return &CandidateCfg{
-		EdgeCfg:    edgeCfg,
-		TCPSrvAddr: "0.0.0.0:9000",
-		IpfsAPIURL: "http://127.0.0.1:5001",
+		EdgeCfg:          edgeCfg,
+		TCPSrvAddr:       "0.0.0.0:9000",
+		IpfsAPIURL:       "http://127.0.0.1:5001",
+		ValidateDuration: 10,
 	}
 }
 

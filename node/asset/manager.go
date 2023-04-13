@@ -234,7 +234,11 @@ func (m *Manager) onPullAssetFinish(puller *assetPuller) {
 		}
 
 		if err := m.StoreAsset(context.Background(), puller.root); err != nil {
-			log.Errorf("put asset error: %s", err.Error())
+			log.Errorf("store asset error: %s", err.Error())
+		}
+
+		if err := m.AddAssetToView(context.Background(), puller.root); err != nil {
+			log.Errorf("add asset to view error: %s", err.Error())
 		}
 
 	} else {
@@ -306,11 +310,15 @@ func (m *Manager) DeleteAsset(root cid.Cid) error {
 		return nil
 	}
 
+	if ok, err := m.PullerExists(root); err == nil && ok {
+		m.DeletePuller(root)
+	}
+
 	if err := m.Storage.DeleteAsset(root); err != nil {
 		return err
 	}
 
-	return nil
+	return m.RemoveAssetFromView(context.Background(), root)
 }
 
 // restoreAssetPullerOrNew retrieves the asset puller associated with the given root CID, or creates a new one.
@@ -476,5 +484,5 @@ func (m *Manager) GetAssetsOfBucket(ctx context.Context, bucketID uint32, isRemo
 
 // GetChecker returns a new instance of a random asset validator based on a given random seed
 func (m *Manager) GetChecker(ctx context.Context, randomSeed int64) (validate.Asset, error) {
-	return NewRandomCheck(randomSeed, m.Storage, nil), nil
+	return NewRandomCheck(randomSeed, m.Storage, m.lru), nil
 }

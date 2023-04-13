@@ -96,7 +96,7 @@ func DefaultSchedulerCfg() *SchedulerCfg {
 		PrivateKeyPath:     "",
 		CaCertificatePath:  "",
 		AreaID:             "CN-GD-Shenzhen",
-		DatabaseAddress:    "user01:sql001@tcp(127.0.0.1:3306)/titan",
+		DatabaseAddress:    "mysql_user:mysql_password@tcp(127.0.0.1:3306)/titan",
 		EnableValidation:   true,
 		EtcdAddresses:      []string{"192.168.0.160:2379"},
 		CandidateReplicas:  0,

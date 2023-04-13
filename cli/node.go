@@ -51,7 +51,6 @@ var registerNodeCmd = &cli.Command{
 	Usage: "Register nodeID and public key ",
 	Flags: []cli.Flag{
 		nodeTypeFlag,
-		nodeIDFlag,
 		&cli.StringFlag{
 			Name:  "public-key-path",
 			Usage: "node public key path",
@@ -60,15 +59,10 @@ var registerNodeCmd = &cli.Command{
 	},
 	Action: func(cctx *cli.Context) error {
 		t := cctx.Int("node-type")
-		nID := cctx.String("node-id")
 		publicKeyPath := cctx.String("public-key-path")
 
 		if t != int(types.NodeEdge) && t != int(types.NodeCandidate) {
 			return xerrors.Errorf("node-type err:%d", t)
-		}
-
-		if nID == "" {
-			return xerrors.New("node-id is nil")
 		}
 
 		if publicKeyPath == "" {
@@ -87,7 +81,10 @@ var registerNodeCmd = &cli.Command{
 		}
 		defer closer()
 
-		return schedulerAPI.RegisterNode(ctx, nID, string(pem), types.NodeType(t))
+		nodeID, err := schedulerAPI.RegisterNode(ctx, string(pem), types.NodeType(t))
+		fmt.Printf("nodeID is : %s", nodeID)
+
+		return err
 	},
 }
 

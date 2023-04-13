@@ -241,8 +241,14 @@ func (s *Scheduler) NodeValidationResult(ctx context.Context, result api.Validat
 }
 
 // RegisterNode adds a new node to the scheduler with the specified node ID, public key, and node type
-func (s *Scheduler) RegisterNode(ctx context.Context, nodeID, pKey string, nodeType types.NodeType) error {
-	return s.NodeManager.SaveNodeRegisterInfo(pKey, nodeID, nodeType)
+func (s *Scheduler) RegisterNode(ctx context.Context, pKey string, nodeType types.NodeType) (nodeID string, err error) {
+	nodeID, err = s.NodeManager.NewNodeID(nodeType)
+	if err != nil {
+		return
+	}
+
+	err = s.NodeManager.SaveNodeRegisterInfo(pKey, nodeID, nodeType)
+	return
 }
 
 // UnregisterNode removes a node from the scheduler with the specified node ID

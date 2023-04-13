@@ -50,10 +50,10 @@ vtctldclient --server localhost:15999 SetKeyspaceDurabilityPolicy --durability-p
 wait_for_healthy_shard titan 0 || exit 1
 
 # create the schema
-vtctldclient ApplySchema --sql-file titan-vitess/create_titan_schema.sql titan || fail "Failed to apply schema for the titan keyspace"
+vtctldclient ApplySchema --sql-file vitess-titan/create_titan_schema.sql titan || fail "Failed to apply schema for the titan keyspace"
 
 # create the vschema
-vtctldclient ApplyVSchema --vschema-file titan-vitess/vschema_titan_initial.json titan || fail "Failed to apply vschema for the titan keyspace"
+vtctldclient ApplyVSchema --vschema-file vitess-titan/vschema_titan_initial.json titan || fail "Failed to apply vschema for the titan keyspace"
 
 # start vtgate
 CELL=zone1 ../common/scripts/vtgate-up.sh

@@ -2,11 +2,14 @@ package node
 
 import (
 	"crypto/rsa"
+	"fmt"
 	"math/rand"
+	"strings"
 	"sync"
 	"time"
 
 	"github.com/filecoin-project/pubsub"
+	"github.com/google/uuid"
 	"github.com/linguohua/titan/api/types"
 	"github.com/linguohua/titan/node/modules/dtypes"
 	"golang.org/x/xerrors"
@@ -251,4 +254,22 @@ func (m *Manager) saveInfo(n *types.NodeInfo) error {
 	}
 
 	return nil
+}
+
+// NewNodeID create a node id
+func (m *Manager) NewNodeID(nType types.NodeType) (string, error) {
+	nodeID := ""
+	switch nType {
+	case types.NodeEdge:
+		nodeID = "e_"
+	case types.NodeCandidate:
+		nodeID = "c_"
+	default:
+		return nodeID, xerrors.Errorf("node type %s is error", nType.String())
+	}
+
+	uid := uuid.NewString()
+	uid = strings.Replace(uid, "-", "", -1)
+
+	return fmt.Sprintf("%s%s", nodeID, uid), nil
 }

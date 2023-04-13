@@ -215,7 +215,7 @@ type SchedulerStruct struct {
 
 		RePullFailedAssets func(p0 context.Context, p1 []types.AssetHash) error `perm:"admin"`
 
-		RegisterNode func(p0 context.Context, p1 string, p2 string, p3 types.NodeType) error `perm:"admin"`
+		RegisterNode func(p0 context.Context, p1 string, p2 types.NodeType) (string, error) `perm:"admin"`
 
 		RemoveAssetRecord func(p0 context.Context, p1 string) error `perm:"admin"`
 
@@ -833,15 +833,15 @@ func (s *SchedulerStub) RePullFailedAssets(p0 context.Context, p1 []types.AssetH
 	return ErrNotSupported
 }
 
-func (s *SchedulerStruct) RegisterNode(p0 context.Context, p1 string, p2 string, p3 types.NodeType) error {
+func (s *SchedulerStruct) RegisterNode(p0 context.Context, p1 string, p2 types.NodeType) (string, error) {
 	if s.Internal.RegisterNode == nil {
-		return ErrNotSupported
+		return "", ErrNotSupported
 	}
-	return s.Internal.RegisterNode(p0, p1, p2, p3)
+	return s.Internal.RegisterNode(p0, p1, p2)
 }
 
-func (s *SchedulerStub) RegisterNode(p0 context.Context, p1 string, p2 string, p3 types.NodeType) error {
-	return ErrNotSupported
+func (s *SchedulerStub) RegisterNode(p0 context.Context, p1 string, p2 types.NodeType) (string, error) {
+	return "", ErrNotSupported
 }
 
 func (s *SchedulerStruct) RemoveAssetRecord(p0 context.Context, p1 string) error {

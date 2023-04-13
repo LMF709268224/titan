@@ -15,8 +15,8 @@ type Scheduler interface {
 	// Node-related methods
 	// GetOnlineNodeCount returns the count of online nodes for a given node type
 	GetOnlineNodeCount(ctx context.Context, nodeType types.NodeType) (int, error) //perm:read
-	// RegisterNode adds a new node to the scheduler with the specified node ID, public key, and node type
-	RegisterNode(ctx context.Context, nodeID, publicKey string, nodeType types.NodeType) error //perm:admin
+	// RegisterNode adds a new node to the scheduler with the specified public key, and node type , and returns node id
+	RegisterNode(ctx context.Context, publicKey string, nodeType types.NodeType) (string, error) //perm:admin
 	// UnregisterNode removes a node from the scheduler with the specified node ID
 	UnregisterNode(ctx context.Context, nodeID string) error //perm:admin
 	// UpdateNodePort updates the port for the node with the specified node

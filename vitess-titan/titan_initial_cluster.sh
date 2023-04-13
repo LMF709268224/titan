@@ -17,46 +17,46 @@
 # this script brings up zookeeper and all the vitess components
 # required for a single shard deployment.
 
-source ../common/env.sh
+source examples/common/env.sh
 
 # start topo server
 if [ "${TOPO}" = "zk2" ]; then
-	CELL=zone1 ../common/scripts/zk-up.sh
+	CELL=zone1 examples/common/scripts/zk-up.sh
 elif [ "${TOPO}" = "k8s" ]; then
-	CELL=zone1 ../common/scripts/k3s-up.sh
+	CELL=zone1 examples/common/scripts/k3s-up.sh
 elif [ "${TOPO}" = "consul" ]; then
-	CELL=zone1 ../common/scripts/consul-up.sh
+	CELL=zone1 examples/common/scripts/consul-up.sh
 else
-	CELL=zone1 ../common/scripts/etcd-up.sh
+	CELL=zone1 examples/common/scripts/etcd-up.sh
 fi
 
 # start vtctld
-CELL=zone1 ../common/scripts/vtctld-up.sh
+CELL=zone1 examples/common/scripts/vtctld-up.sh
 
 # start vttablets for keyspace commerce
 for i in 100 101 102; do
-	CELL=zone1 TABLET_UID=$i ../common/scripts/mysqlctl-up.sh
-	CELL=zone1 KEYSPACE=titan TABLET_UID=$i ../common/scripts/vttablet-up.sh
+	CELL=zone1 TABLET_UID=$i examples/common/scripts/mysqlctl-up.sh
+	CELL=zone1 KEYSPACE=titan TABLET_UID=$i examples/common/scripts/vttablet-up.sh
 done
 
 # set the correct durability policy for the keyspace
 vtctldclient --server localhost:15999 SetKeyspaceDurabilityPolicy --durability-policy=semi_sync titan || fail "Failed to set keyspace durability policy on the titan keyspace"
 
 # start vtorc
-../common/scripts/vtorc-up.sh
+examples/common/scripts/vtorc-up.sh
 
 # Wait for all the tablets to be up and registered in the topology server
 # and for a primary tablet to be elected in the shard and become healthy/serving.
 wait_for_healthy_shard titan 0 || exit 1
 
 # create the schema
-vtctldclient ApplySchema --sql-file vitess-titan/create_titan_schema.sql titan || fail "Failed to apply schema for the titan keyspace"
+vtctldclient ApplySchema --sql-file create_titan_schema.sql titan || fail "Failed to apply schema for the titan keyspace"
 
 # create the vschema
-vtctldclient ApplyVSchema --vschema-file vitess-titan/vschema_titan_initial.json titan || fail "Failed to apply vschema for the titan keyspace"
+vtctldclient ApplyVSchema --vschema-file vschema_titan_initial.json titan || fail "Failed to apply vschema for the titan keyspace"
 
 # start vtgate
-CELL=zone1 ../common/scripts/vtgate-up.sh
+CELL=zone1 examples/common/scripts/vtgate-up.sh
 
 # start vtadmin
-../common/scripts/vtadmin-up.sh
+examples/common/scripts/vtadmin-up.sh

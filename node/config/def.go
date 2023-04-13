@@ -28,12 +28,13 @@ func init() {
 // DefaultEdgeCfg returns the default edge config
 func DefaultEdgeCfg() *EdgeCfg {
 	return &EdgeCfg{
-		ListenAddress:    "0.0.0.0:1234",
-		Timeout:          "30s",
-		CarfileStorePath: "",
-		BandwidthUp:      104857600,
-		BandwidthDown:    1073741824,
-		Locator:          true,
+		ListenAddress: "0.0.0.0:1234",
+		Timeout:       "30s",
+		MetadataPath:  "",
+		AssetsPaths:   []string{},
+		BandwidthUp:   104857600,
+		BandwidthDown: 1073741824,
+		Locator:       true,
 
 		CertificatePath:    "",
 		PrivateKeyPath:     "",
@@ -49,12 +50,13 @@ func DefaultEdgeCfg() *EdgeCfg {
 // DefaultCandidateCfg returns the default candidate config
 func DefaultCandidateCfg() *CandidateCfg {
 	edgeCfg := EdgeCfg{
-		ListenAddress:    "0.0.0.0:2345",
-		Timeout:          "30s",
-		CarfileStorePath: "",
-		BandwidthUp:      1073741824,
-		BandwidthDown:    1073741824,
-		Locator:          true,
+		ListenAddress: "0.0.0.0:2345",
+		Timeout:       "30s",
+		MetadataPath:  "",
+		AssetsPaths:   []string{},
+		BandwidthUp:   1073741824,
+		BandwidthDown: 1073741824,
+		Locator:       true,
 
 		InsecureSkipVerify: true,
 		CertificatePath:    "",

@@ -18,9 +18,10 @@ func TestGateway(t *testing.T) {
 func TestResolvePath(t *testing.T) {
 	t.Log("TestResolvePath")
 
-	storePath := "C:/Users/aaa/.titanedge-1/asset"
 	p := "/ipfs/QmNXoAB3ZNoFQQZMGk4utybuvABdLTz6hcVmtHnV4FUp3S/log"
-	storageMgr, err := storage.NewManager(storePath, nil)
+	metaDataPath := "C:/Users/aaa/.titanedge-1/storage"
+	assetsPaths := []string{metaDataPath}
+	storageMgr, err := storage.NewManager(&storage.ManagerOptions{MetaDataPath: metaDataPath, AssetsPaths: assetsPaths})
 	if err != nil {
 		t.Errorf("NewManager err:%s", err)
 		return

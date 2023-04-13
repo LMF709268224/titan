@@ -32,7 +32,8 @@ type NodeID string
 // InternalIP local network address
 type InternalIP string
 
-type CarfileStorePath string
+type NodeMetadataPath string
+type AssetsPaths []string
 
 // ServerID server id
 type ServerID string

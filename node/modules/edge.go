@@ -25,8 +25,8 @@ func NewRateLimiter(device *device.Device) *rate.Limiter {
 }
 
 // NewNodeStorageManager creates a new instance of storage.Manager with the given carfile store path.
-func NewNodeStorageManager(path dtypes.CarfileStorePath) (*storage.Manager, error) {
-	return storage.NewManager(string(path), nil)
+func NewNodeStorageManager(metadataPaths dtypes.NodeMetadataPath, assetsPaths dtypes.AssetsPaths) (*storage.Manager, error) {
+	return storage.NewManager(&storage.ManagerOptions{MetaDataPath: string(metadataPaths), AssetsPaths: assetsPaths})
 }
 
 // NewAssetsManager creates a function that generates new instances of asset.Manager.

@@ -31,7 +31,9 @@ func TestManager(t *testing.T) {
 		return
 	}
 
-	storageMgr, err := storage.NewManager("./test", nil)
+	metaDataPath := "./test"
+	assetsPaths := []string{metaDataPath}
+	storageMgr, err := storage.NewManager(&storage.ManagerOptions{MetaDataPath: metaDataPath, AssetsPaths: assetsPaths})
 	if err != nil {
 		t.Errorf("NewManager err:%s", err)
 		return

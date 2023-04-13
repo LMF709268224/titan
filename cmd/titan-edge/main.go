@@ -234,14 +234,23 @@ var runCmd = &cli.Command{
 			node.Override(new(dtypes.NodeID), dtypes.NodeID(nodeID)),
 			node.Override(new(api.Scheduler), schedulerAPI),
 			node.Override(new(net.PacketConn), udpPacketConn),
-			node.Override(new(dtypes.CarfileStorePath), func() dtypes.CarfileStorePath {
-				carfileStorePath := edgeCfg.CarfileStorePath
-				if len(carfileStorePath) == 0 {
-					carfileStorePath = path.Join(lr.Path(), DefaultStorageDir)
+			node.Override(new(dtypes.NodeMetadataPath), func() dtypes.NodeMetadataPath {
+				metadataPath := edgeCfg.MetadataPath
+				if len(metadataPath) == 0 {
+					metadataPath = path.Join(lr.Path(), DefaultStorageDir)
 				}
 
-				log.Infof("carfilestorePath:%s", carfileStorePath)
-				return dtypes.CarfileStorePath(carfileStorePath)
+				log.Infof("metadataPath:%s", metadataPath)
+				return dtypes.NodeMetadataPath(metadataPath)
+			}),
+			node.Override(new(dtypes.AssetsPaths), func() dtypes.AssetsPaths {
+				assetsPaths := edgeCfg.AssetsPaths
+				if len(assetsPaths) == 0 {
+					assetsPaths = []string{path.Join(lr.Path(), DefaultStorageDir)}
+				}
+
+				log.Debugf("assetsPaths:%#v", assetsPaths)
+				return dtypes.AssetsPaths(assetsPaths)
 			}),
 			node.Override(new(dtypes.InternalIP), func() (dtypes.InternalIP, error) {
 				ainfo, err := lcli.GetAPIInfo(cctx, repo.Scheduler)

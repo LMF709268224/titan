@@ -14,8 +14,10 @@ type EdgeCfg struct {
 	NodeID string
 	// used auth when connect to scheduler
 	Secret string
-	// carfilestore path
-	CarfileStorePath string
+	// metadata path
+	MetadataPath string
+	// assets path
+	AssetsPaths []string
 	// upload file bandwidth, unit is B/s
 	BandwidthUp int64
 	// download file bandwidth, unit is B/s

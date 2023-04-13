@@ -18,7 +18,6 @@ const (
 	pullerDir      = "asset-puller"
 	waitListFile   = "wait-list"
 	assetsDir      = "assets"
-	transientsDir  = "tmp"
 	countDir       = "count"
 	assetSuffix    = ".car"
 	assetsViewDir  = "assets-view"
@@ -28,7 +27,7 @@ const (
 
 // Manager handles storage operations
 type Manager struct {
-	baseDir    string
+	opts       *ManagerOptions
 	asset      *asset
 	wl         *waitList
 	puller     *puller
@@ -38,66 +37,42 @@ type Manager struct {
 
 // ManagerOptions contains configuration options for the Manager
 type ManagerOptions struct {
-	PullerDir        string
-	waitListFilePath string
-	AssetsDir        string
-	AssetSuffix      string
-	CountDir         string
-	AssetsViewDir    string
-	// data view size of buckets
-	BucketSize uint32
+	MetaDataPath string
+	AssetsPaths  []string
 }
 
 // NewManager creates a new Manager instance
-func NewManager(baseDir string, opts *ManagerOptions) (*Manager, error) {
-	if opts == nil {
-		opts = defaultOptions(baseDir)
-	}
-
-	asset, err := newAsset(opts.AssetsDir, opts.AssetSuffix)
+func NewManager(opts *ManagerOptions) (*Manager, error) {
+	// TODO store assets in multi storage
+	asset, err := newAsset(filepath.Join(opts.AssetsPaths[0], assetsDir), assetSuffix)
 	if err != nil {
 		return nil, err
 	}
 
-	puller, err := newPuller(opts.PullerDir)
+	puller, err := newPuller(filepath.Join(opts.MetaDataPath, pullerDir))
 	if err != nil {
 		return nil, err
 	}
 
-	blockCount, err := newBlockCount(opts.CountDir)
+	blockCount, err := newBlockCount(filepath.Join(opts.MetaDataPath, countDir))
 	if err != nil {
 		return nil, err
 	}
 
-	assetsView, err := newAssetsView(opts.AssetsViewDir, opts.BucketSize)
+	assetsView, err := newAssetsView(filepath.Join(opts.MetaDataPath, assetsViewDir), sizeOfBucket)
 	if err != nil {
 		return nil, err
 	}
 
-	waitList := newWaitList(opts.waitListFilePath)
+	waitList := newWaitList(filepath.Join(opts.MetaDataPath, waitListFile))
 	return &Manager{
-		baseDir:    baseDir,
 		asset:      asset,
 		assetsView: assetsView,
 		wl:         waitList,
 		puller:     puller,
 		blockCount: blockCount,
+		opts:       opts,
 	}, nil
-}
-
-// defaultOptions generates default configuration options
-func defaultOptions(baseDir string) *ManagerOptions {
-	opts := &ManagerOptions{
-		PullerDir:        filepath.Join(baseDir, pullerDir),
-		waitListFilePath: filepath.Join(baseDir, waitListFile),
-		AssetsDir:        filepath.Join(baseDir, assetsDir),
-		AssetSuffix:      assetSuffix,
-		CountDir:         filepath.Join(baseDir, countDir),
-		AssetsViewDir:    filepath.Join(baseDir, assetsViewDir),
-		// cache for asset index
-		BucketSize: sizeOfBucket,
-	}
-	return opts
 }
 
 // StorePuller stores puller data in storage
@@ -212,11 +187,12 @@ func (m *Manager) GetWaitList() ([]byte, error) {
 
 // GetDiskUsageStat retrieves the disk usage statistics
 func (m *Manager) GetDiskUsageStat() (totalSpace, usage float64) {
-	usageStat, err := disk.Usage(m.baseDir)
+	usageStat, err := disk.Usage(m.opts.MetaDataPath)
 	if err != nil {
 		log.Errorf("get disk usage stat error: %s", err)
 		return 0, 0
 	}
+	// TODO stat assets storage
 	return float64(usageStat.Total), usageStat.UsedPercent
 }
 

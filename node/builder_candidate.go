@@ -50,7 +50,7 @@ func ConfigCandidate(c interface{}) Option {
 	return Options(
 		Override(new(*config.CandidateCfg), cfg),
 		Override(new(*device.Device), modules.NewDevice(cfg.BandwidthUp, cfg.BandwidthDown)),
-		Override(new(dtypes.CarfileStorePath), dtypes.CarfileStorePath(cfg.CarfileStorePath)),
+		Override(new(dtypes.NodeMetadataPath), dtypes.NodeMetadataPath(cfg.MetadataPath)),
 		Override(new(*storage.Manager), modules.NewNodeStorageManager),
 		Override(new(*asset.Manager), modules.NewAssetsManager(cfg.FetchBatch)),
 		Override(new(*validation.Validation), modules.NewNodeValidation),

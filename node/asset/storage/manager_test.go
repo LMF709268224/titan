@@ -13,7 +13,7 @@ func init() {
 
 func TestManager(t *testing.T) {
 	baseDir := "C:/Users/aaa/.titanedge-1/storage"
-	Manager, err := NewManager(baseDir, nil)
+	Manager, err := NewManager(&ManagerOptions{MetaDataPath: baseDir, AssetsPaths: []string{baseDir}})
 	if err != nil {
 		t.Errorf("new Manager error:%s", err.Error())
 		return

@@ -21,7 +21,9 @@ func init() {
 
 func TestLRUCache(t *testing.T) {
 	t.Logf("TestLRUCache")
-	storageMgr, err := storage.NewManager("C:/Users/aaa/.titancandidate-1/storage/", nil)
+	metaDataPath := "C:/Users/aaa/.titancandidate-1/storage/"
+	assetsPaths := []string{metaDataPath}
+	storageMgr, err := storage.NewManager(&storage.ManagerOptions{MetaDataPath: metaDataPath, AssetsPaths: assetsPaths})
 	if err != nil {
 		t.Errorf("new manager err:%s", err.Error())
 		return
@@ -66,7 +68,9 @@ func TestLRUCache(t *testing.T) {
 func TestIndex(t *testing.T) {
 	t.Logf("TestIndex")
 
-	storageMgr, err := storage.NewManager("C:/Users/aaa/.titanedge-1/storage", nil)
+	metaDataPath := "C:/Users/aaa/.titancandidate-1/storage/"
+	assetsPaths := []string{metaDataPath}
+	storageMgr, err := storage.NewManager(&storage.ManagerOptions{MetaDataPath: metaDataPath, AssetsPaths: assetsPaths})
 	if err != nil {
 		t.Errorf("new manager err:%s", err.Error())
 		return

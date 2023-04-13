@@ -20,13 +20,13 @@ type asset struct {
 }
 
 // newAsset initializes a new asset instance.
-func newAsset(baseDir, suffix string) (*asset, error) {
-	err := os.MkdirAll(baseDir, 0o755)
+func newAsset(baseDirs string, suffix string) (*asset, error) {
+	err := os.MkdirAll(baseDirs, 0o755)
 	if err != nil {
 		return nil, err
 	}
 
-	return &asset{baseDir: baseDir, suffix: suffix}, nil
+	return &asset{baseDir: baseDirs, suffix: suffix}, nil
 }
 
 // generateAssetName creates a new asset file name.

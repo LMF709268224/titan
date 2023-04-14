@@ -73,6 +73,21 @@ cfgdoc-gen:
 build: titan-scheduler titan-candidate titan-edge titan-locator
 .PHONY: build
 
+install: install-daemon install-miner install-worker
+
+install-scheduler:
+	install -C ./titan-scheduler /usr/local/bin/titan-scheduler
+
+install-locator:
+	install -C ./titan-locator /usr/local/bin/titan-locator
+
+install-candidate:
+	install -C ./titan-candidate /usr/local/bin/titan-candidate
+
+install-edge:
+	install -C ./titan-edge /usr/local/bin/titan-edge
+
+
 edge-image:
 	docker build -t edge:latest -f ./cmd/titan-edge/Dockerfile .
 .PHONY: edge-image

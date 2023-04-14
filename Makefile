@@ -73,7 +73,7 @@ cfgdoc-gen:
 build: titan-scheduler titan-candidate titan-edge titan-locator
 .PHONY: build
 
-install: install-daemon install-miner install-worker
+install: install-scheduler install-locator install-candidate install-edge
 
 install-scheduler:
 	install -C ./titan-scheduler /usr/local/bin/titan-scheduler

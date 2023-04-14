@@ -1,5 +1,7 @@
-## 1 Registering nodes from the web
-    When registration is complete, you will get the node-id and private key
+## 1 Registering nodes from the web 
+    Login to https://www.titannet.io/
+    And Register Node
+    When registration is complete, you will get the node-id and private-key and area-id
 
 ## 2 Import the private key to the node
     Both Canidate and Edge need to import the private key to join the titan network, here is the example of Canidate

@@ -68,7 +68,7 @@ func (s *Scheduler) GetEdgeDownloadInfos(ctx context.Context, cid string) (*type
 
 	ret := &types.EdgeDownloadInfoList{
 		Infos:        infos,
-		SchedulerURL: s.SchedulerCfg.RPCURL,
+		SchedulerURL: s.SchedulerCfg.ExternalURL,
 	}
 
 	return ret, nil

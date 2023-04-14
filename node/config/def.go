@@ -92,7 +92,7 @@ func DefaultLocatorCfg() *LocatorCfg {
 // DefaultSchedulerCfg returns the default scheduler config
 func DefaultSchedulerCfg() *SchedulerCfg {
 	return &SchedulerCfg{
-		RPCURL:             "https://localhost:3456/rpc/v0",
+		ExternalURL:        "https://localhost:3456/rpc/v0",
 		ListenAddress:      "0.0.0.0:3456",
 		InsecureSkipVerify: true,
 		CertificatePath:    "",

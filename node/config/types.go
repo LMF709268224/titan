@@ -78,7 +78,7 @@ type LocatorCfg struct {
 // SchedulerCfg scheduler config
 type SchedulerCfg struct {
 	// host external address and port
-	RPCURL string
+	ExternalURL string
 	// host address and port the edge node api will listen on
 	ListenAddress string
 	// database address

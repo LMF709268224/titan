@@ -154,7 +154,7 @@ func RegisterToEtcd(mctx helpers.MetricsCtx, lc fx.Lifecycle, configFunc dtypes.
 
 	sCfg := &types.SchedulerCfg{
 		AreaID:       cfg.AreaID,
-		SchedulerURL: cfg.RPCURL,
+		SchedulerURL: cfg.ExternalURL,
 		AccessToken:  string(token),
 	}
 

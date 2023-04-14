@@ -106,26 +106,7 @@ func main() {
 var runCmd = &cli.Command{
 	Name:  "run",
 	Usage: "Start titan edge node",
-	Flags: []cli.Flag{
-		&cli.StringFlag{
-			Required: true,
-			Name:     "node-id",
-			Usage:    "example: --device-id=b26fb231-e986-42de-a5d9-7b512a35543d",
-			Value:    "",
-		},
-		&cli.StringFlag{
-			Required: true,
-			Name:     "area-id",
-			Usage:    "example: --area-id=CN-GD-Shenzhen",
-			Value:    "",
-		},
-		&cli.StringFlag{
-			Name:    "key-path",
-			EnvVars: []string{"TITAN_SCHEDULER_KEY", "SCHEDULER_KEY"},
-			Usage:   "private key path",
-			Value:   "",
-		},
-	},
+	Flags: []cli.Flag{},
 
 	Before: func(cctx *cli.Context) error {
 		return nil
@@ -173,11 +154,12 @@ var runCmd = &cli.Command{
 			return err
 		}
 
-		// Connect to scheduler
-		nodeID := cctx.String("device-id")
-		areaID := cctx.String("area-id")
+		if len(edgeCfg.NodeID) == 0 || len(edgeCfg.AreaID) == 0 {
+			return xerrors.Errorf(`Please import private key, node id, area id, example: \n
+			./titan-edge import --private-key /path/to/private.key --node-id "Your node id" --area-id "Your area id"`)
+		}
 
-		privateKey, err := loadPrivateKey(cctx.String("key-path"), r)
+		privateKey, err := loadPrivateKey(r)
 		if err != nil {
 			return xerrors.Errorf("load private key error: %w", err)
 		}
@@ -200,12 +182,12 @@ var runCmd = &cli.Command{
 		}
 		jsonrpc.SetHttp3Client(httpClient)
 
-		url, err := getSchedulerURL(cctx, nodeID, areaID, edgeCfg.Locator)
+		url, err := getSchedulerURL(cctx, edgeCfg.NodeID, edgeCfg.AreaID, edgeCfg.Locator)
 		if err != nil {
 			return xerrors.Errorf("get scheduler url %w", err)
 		}
 
-		schedulerAPI, closer, err := newSchedulerAPI(cctx, url, nodeID, privateKey)
+		schedulerAPI, closer, err := newSchedulerAPI(cctx, url, edgeCfg.NodeID, privateKey)
 		if err != nil {
 			return xerrors.Errorf("new scheduler api %w", err)
 		}
@@ -231,7 +213,7 @@ var runCmd = &cli.Command{
 			node.Edge(&edgeAPI),
 			node.Base(),
 			node.Repo(r),
-			node.Override(new(dtypes.NodeID), dtypes.NodeID(nodeID)),
+			node.Override(new(dtypes.NodeID), dtypes.NodeID(edgeCfg.NodeID)),
 			node.Override(new(api.Scheduler), schedulerAPI),
 			node.Override(new(net.PacketConn), udpPacketConn),
 			node.Override(new(dtypes.NodeMetadataPath), func() dtypes.NodeMetadataPath {
@@ -544,15 +526,7 @@ func defaultTLSConfig() (*tls.Config, error) {
 	}, nil
 }
 
-func loadPrivateKey(path string, r *repo.FsRepo) (*rsa.PrivateKey, error) {
-	if len(path) > 0 {
-		pem, err := os.ReadFile(path)
-		if err != nil {
-			return nil, err
-		}
-		return titanrsa.Pem2PrivateKey(pem)
-	}
-
+func loadPrivateKey(r *repo.FsRepo) (*rsa.PrivateKey, error) {
 	pem, err := r.PrivateKey()
 	if err != nil {
 		return nil, err

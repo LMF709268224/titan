@@ -12,6 +12,8 @@ type EdgeCfg struct {
 	Timeout string
 	// node id
 	NodeID string
+	// area id
+	AreaID string
 	// used auth when connect to scheduler
 	Secret string
 	// metadata path

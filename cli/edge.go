@@ -8,6 +8,7 @@ import (
 	"github.com/filecoin-project/go-jsonrpc"
 	"github.com/linguohua/titan/api"
 	"github.com/linguohua/titan/api/client"
+	"github.com/linguohua/titan/node/config"
 	"github.com/linguohua/titan/node/repo"
 	titanrsa "github.com/linguohua/titan/node/rsa"
 	"github.com/urfave/cli/v2"
@@ -18,6 +19,7 @@ var EdgeCmds = []*cli.Command{
 	cacheStatCmd,
 	progressCmd,
 	keyCmds,
+	configCmds,
 }
 
 var nodeInfoCmd = &cli.Command{
@@ -345,4 +347,157 @@ func getEdgeAPI(ctx *cli.Context) (api.Edge, jsonrpc.ClientCloser, error) {
 	}
 
 	return client.NewEdge(ctx.Context, addr, headers)
+}
+
+var configCmds = &cli.Command{
+	Name:  "config",
+	Usage: "set config",
+	Subcommands: []*cli.Command{
+		setConfigCmd,
+	},
+}
+
+var setConfigCmd = &cli.Command{
+	Name:  "set",
+	Usage: "set config",
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:  "listen-address",
+			Usage: "local listen address, example: --listen-address=0.0.0.0:1234",
+			Value: "0.0.0.0:1234",
+		},
+		&cli.StringFlag{
+			Name:  "timeout",
+			Usage: "network connect timeout. example: --timeout=30s",
+			Value: "30s",
+		},
+		&cli.StringFlag{
+			Name:  "node-id",
+			Usage: "example: --node-id=your_node_id",
+			Value: "your_node_id",
+		},
+		&cli.StringFlag{
+			Name:  "area-id",
+			Usage: "example: --area-id=your_area_id",
+			Value: "your_area_id",
+		},
+		&cli.StringFlag{
+			Name:  "metadata-path",
+			Usage: "metadata path, example: --metadata-path=/path/to/metadata",
+			Value: "",
+		},
+		&cli.StringFlag{
+			Name:  "assets-paths",
+			Usage: "assets paths, example: --assets-paths=/path/to/assets1,/path/to/assets2",
+			Value: "",
+		},
+		&cli.IntFlag{
+			Name:  "bandwidth-up",
+			Usage: "example: --bandwidth-up=104857600",
+			Value: 104857600,
+		},
+		&cli.IntFlag{
+			Name:  "bandwidth-down",
+			Usage: "example: --bandwidth-down=1073741824",
+			Value: 1073741824,
+		},
+		&cli.BoolFlag{
+			Name:  "locator",
+			Usage: "example: --locator=true",
+			Value: true,
+		},
+		&cli.StringFlag{
+			Name:  "certificate-path",
+			Usage: "example: --certificate-path=/path/to/certificate",
+			Value: "/path/to/certificate",
+		},
+		&cli.StringFlag{
+			Name:  "private-key-path",
+			Usage: "example: --private-key-path=/path/to/private.key",
+			Value: "/path/to/private.key",
+		},
+		&cli.StringFlag{
+			Name:  "ca-certificate-path",
+			Usage: "example: --ca-certificate-path=/path/to/ca-certificate",
+			Value: "/path/to/ca-certificate",
+		},
+		&cli.IntFlag{
+			Name:  "fetch-block-timeout",
+			Usage: "fetch block timeout, unit is seconds, example: --fetch-block-timeout=3",
+			Value: 3,
+		},
+		&cli.IntFlag{
+			Name:  "fetch-block-retry",
+			Usage: "retry number when fetch block failed, example: --fetch-block-retry=2",
+			Value: 2,
+		},
+		&cli.IntFlag{
+			Name:  "fetch-batch",
+			Usage: "example: --fetch-batch=5",
+			Value: 5,
+		},
+	},
+
+	Action: func(cctx *cli.Context) error {
+		lr, err := openRepo(cctx)
+		if err != nil {
+			return err
+		}
+		defer lr.Close() //nolint:errcheck  // ignore error
+
+		lr.SetConfig(func(raw interface{}) {
+			cfg, ok := raw.(*config.EdgeCfg)
+			if !ok {
+				return
+			}
+
+			if cctx.IsSet("listen-address") {
+				cfg.ListenAddress = cctx.String("listen-address")
+			}
+			if cctx.IsSet("timeout") {
+				cfg.Timeout = cctx.String("timeout")
+			}
+			if cctx.IsSet("node-id") {
+				cfg.NodeID = cctx.String("node-id")
+			}
+			if cctx.IsSet("area-id") {
+				cfg.AreaID = cctx.String("area-id")
+			}
+			if cctx.IsSet("metadata-path") {
+				cfg.MetadataPath = cctx.String("metadata-path")
+			}
+			if cctx.IsSet("assets-paths") {
+				cfg.AssetsPaths = cctx.StringSlice("assets-paths")
+			}
+			if cctx.IsSet("bandwidth-up") {
+				cfg.BandwidthUp = cctx.Int64("bandwidth-up")
+			}
+			if cctx.IsSet("bandwidth-down") {
+				cfg.BandwidthDown = cctx.Int64("bandwidth-down")
+			}
+			if cctx.IsSet("locator") {
+				cfg.Locator = cctx.Bool("locator")
+			}
+			if cctx.IsSet("certificate-path") {
+				cfg.CertificatePath = cctx.String("certificate-path")
+			}
+			if cctx.IsSet("private-key-path") {
+				cfg.PrivateKeyPath = cctx.String("private-key-path")
+			}
+			if cctx.IsSet("ca-certificate-path") {
+				cfg.CaCertificatePath = cctx.String("ca-certificate-path")
+			}
+			if cctx.IsSet("fetch-block-timeout") {
+				cfg.FetchBlockTimeout = cctx.Int("fetch-block-timeout")
+			}
+			if cctx.IsSet("fetch-block-retry") {
+				cfg.FetchBlockRetry = cctx.Int("fetch-block-retry")
+			}
+			if cctx.IsSet("fetch-batch") {
+				cfg.FetchBatch = cctx.Int("fetch-batch")
+			}
+		})
+
+		return nil
+	},
 }

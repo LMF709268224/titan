@@ -96,10 +96,10 @@ var runCmd = &cli.Command{
 			Usage: "geodb path, example: --geodb-path=../../geoip/geolite2_city/city.mmdb",
 			Value: "../../geoip/geolite2_city/city.mmdb",
 		},
-		&cli.StringFlag{
-			Name:  "accesspoint-db",
-			Usage: "mysql db, example: --accesspoint-db=user01:sql001@tcp(127.0.0.1:3306)/test",
-			Value: "user01:sql001@tcp(127.0.0.1:3306)/test",
+		&cli.StringSliceFlag{
+			Name:  "etcd-addresses",
+			Usage: "etcd, example: --etcd-addresses='192.168.0.51:2379'",
+			Value: &cli.StringSlice{},
 		},
 	},
 
@@ -149,9 +149,9 @@ var runCmd = &cli.Command{
 			node.Locator(&locatorAPI),
 			node.Base(),
 			node.Repo(r),
-			node.ApplyIf(func(s *node.Settings) bool { return cctx.IsSet("accesspoint-db") },
-				node.Override(new(dtypes.DatabaseAddress), func() dtypes.DatabaseAddress {
-					return dtypes.DatabaseAddress(cctx.String("accesspoint-db"))
+			node.ApplyIf(func(s *node.Settings) bool { return cctx.IsSet("etcd-addresses") },
+				node.Override(new(dtypes.EtcdAddresses), func() dtypes.EtcdAddresses {
+					return dtypes.EtcdAddresses(cctx.StringSlice("etcd-addresses"))
 				})),
 			node.ApplyIf(func(s *node.Settings) bool { return cctx.IsSet("geodb-path") },
 				node.Override(new(dtypes.GeoDBPath), func() dtypes.GeoDBPath {

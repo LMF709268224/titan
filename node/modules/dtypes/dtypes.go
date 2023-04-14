@@ -14,6 +14,9 @@ type GeoDBPath string
 // DatabaseAddress the DSN to connect to the database
 type DatabaseAddress string
 
+// EtcdAddresses the locator to connect to the database
+type EtcdAddresses []string
+
 // PermissionWriteToken token with write permission
 type PermissionWriteToken string
 

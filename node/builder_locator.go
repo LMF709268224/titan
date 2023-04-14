@@ -51,6 +51,9 @@ func ConfigLocator(c interface{}) Option {
 		Override(new(dtypes.SessionCallbackFunc), func() dtypes.SessionCallbackFunc {
 			return func(s string, s2 string) error { return nil }
 		}),
+		Override(new(dtypes.EtcdAddresses), func() dtypes.EtcdAddresses {
+			return dtypes.EtcdAddresses(cfg.EtcdAddresses)
+		}),
 		Override(new(dtypes.GeoDBPath), func() dtypes.GeoDBPath {
 			return dtypes.GeoDBPath(cfg.GeoDBPath)
 		}),

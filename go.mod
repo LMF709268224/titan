@@ -1,4 +1,4 @@
-module github.com/linguohua/titan
+module github.com/Filecoin-Titan/titan
 
 go 1.17
 

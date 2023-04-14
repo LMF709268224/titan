@@ -3,7 +3,7 @@ package types
 import (
 	"time"
 
-	"github.com/linguohua/titan/node/modules/dtypes"
+	"github.com/Filecoin-Titan/titan/node/modules/dtypes"
 )
 
 type OpenRPCDocument map[string]interface{}

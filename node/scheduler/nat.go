@@ -8,11 +8,11 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/linguohua/titan/api/client"
-	"github.com/linguohua/titan/api/types"
-	cliutil "github.com/linguohua/titan/cli/util"
-	"github.com/linguohua/titan/node/handler"
-	"github.com/linguohua/titan/node/scheduler/node"
+	"github.com/Filecoin-Titan/titan/api/client"
+	"github.com/Filecoin-Titan/titan/api/types"
+	cliutil "github.com/Filecoin-Titan/titan/cli/util"
+	"github.com/Filecoin-Titan/titan/node/handler"
+	"github.com/Filecoin-Titan/titan/node/scheduler/node"
 	"golang.org/x/xerrors"
 )
 

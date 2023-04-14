@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/gob"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 )
 
 // AssetPullerEncoder encodes or decodes assetPuller

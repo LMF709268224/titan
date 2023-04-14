@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/linguohua/titan/node/scheduler/assets"
+	"github.com/Filecoin-Titan/titan/node/scheduler/assets"
 	gen "github.com/whyrusleeping/cbor-gen"
 )
 

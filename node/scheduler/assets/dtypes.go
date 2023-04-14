@@ -3,7 +3,7 @@ package assets
 import (
 	"time"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 )
 
 // AssetHash is an identifier for a asset.

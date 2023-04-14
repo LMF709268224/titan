@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/linguohua/titan/api"
+	"github.com/Filecoin-Titan/titan/api"
 	"github.com/urfave/cli/v2"
 )
 

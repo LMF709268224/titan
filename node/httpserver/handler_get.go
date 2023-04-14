@@ -11,8 +11,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/linguohua/titan/api/types"
-	titanrsa "github.com/linguohua/titan/node/rsa"
+	"github.com/Filecoin-Titan/titan/api/types"
+	titanrsa "github.com/Filecoin-Titan/titan/node/rsa"
 	"golang.org/x/xerrors"
 )
 

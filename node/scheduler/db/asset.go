@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 
+	"github.com/Filecoin-Titan/titan/node/modules/dtypes"
 	"github.com/jmoiron/sqlx"
-	"github.com/linguohua/titan/node/modules/dtypes"
 	"golang.org/x/xerrors"
 )
 

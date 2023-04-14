@@ -6,8 +6,8 @@ import (
 
 	"go.opencensus.io/tag"
 
-	"github.com/linguohua/titan/api"
-	"github.com/linguohua/titan/metrics"
+	"github.com/Filecoin-Titan/titan/api"
+	"github.com/Filecoin-Titan/titan/metrics"
 )
 
 func MetricedCandidateAPI(a api.Candidate) api.Candidate {

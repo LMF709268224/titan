@@ -21,10 +21,10 @@ import (
 	"github.com/multiformats/go-multiaddr"
 	"golang.org/x/xerrors"
 
-	"github.com/linguohua/titan/node/config"
+	"github.com/Filecoin-Titan/titan/node/config"
 
-	"github.com/linguohua/titan/node/fsutil"
-	"github.com/linguohua/titan/node/types"
+	"github.com/Filecoin-Titan/titan/node/fsutil"
+	"github.com/Filecoin-Titan/titan/node/types"
 )
 
 const (

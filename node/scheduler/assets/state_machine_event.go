@@ -1,7 +1,7 @@
 package assets
 
 import (
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 	"golang.org/x/xerrors"
 )
 

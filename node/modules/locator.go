@@ -1,9 +1,9 @@
 package modules
 
 import (
-	"github.com/linguohua/titan/node/locator"
-	"github.com/linguohua/titan/node/modules/dtypes"
-	"github.com/linguohua/titan/region"
+	"github.com/Filecoin-Titan/titan/node/locator"
+	"github.com/Filecoin-Titan/titan/node/modules/dtypes"
+	"github.com/Filecoin-Titan/titan/region"
 )
 
 // NewRegion creates a new region instance using the given database path.

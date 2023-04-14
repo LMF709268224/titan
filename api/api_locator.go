@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 )
 
 // Locator is an interface for locator services

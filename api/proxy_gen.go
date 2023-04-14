@@ -8,8 +8,8 @@ import (
 
 	"github.com/filecoin-project/go-jsonrpc/auth"
 	"github.com/google/uuid"
-	"github.com/linguohua/titan/api/types"
-	"github.com/linguohua/titan/journal/alerting"
+	"github.com/Filecoin-Titan/titan/api/types"
+	"github.com/Filecoin-Titan/titan/journal/alerting"
 	xerrors "golang.org/x/xerrors"
 )
 

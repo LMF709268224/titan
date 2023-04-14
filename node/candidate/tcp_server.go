@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/linguohua/titan/api"
-	"github.com/linguohua/titan/node/config"
+	"github.com/Filecoin-Titan/titan/api"
+	"github.com/Filecoin-Titan/titan/node/config"
 )
 
 type tcpMsg struct {

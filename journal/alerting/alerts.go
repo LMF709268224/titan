@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/linguohua/titan/journal"
+	"github.com/Filecoin-Titan/titan/journal"
 
 	logging "github.com/ipfs/go-log/v2"
 )

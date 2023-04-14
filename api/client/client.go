@@ -7,11 +7,11 @@ import (
 	"path"
 	"time"
 
-	"github.com/linguohua/titan/api"
+	"github.com/Filecoin-Titan/titan/api"
 
 	"github.com/filecoin-project/go-jsonrpc"
 
-	"github.com/linguohua/titan/lib/rpcenc"
+	"github.com/Filecoin-Titan/titan/lib/rpcenc"
 )
 
 // NewScheduler creates a new http jsonrpc client.

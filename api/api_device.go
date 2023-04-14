@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 )
 
 // Device is an interface for node

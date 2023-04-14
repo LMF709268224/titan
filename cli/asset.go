@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Filecoin-Titan/titan/lib/tablewriter"
+	"github.com/Filecoin-Titan/titan/node/scheduler/assets"
 	"github.com/docker/go-units"
 	"github.com/fatih/color"
-	"github.com/linguohua/titan/lib/tablewriter"
-	"github.com/linguohua/titan/node/scheduler/assets"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/xerrors"
 )

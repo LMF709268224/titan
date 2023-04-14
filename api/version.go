@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 
 	xerrors "golang.org/x/xerrors"
 )

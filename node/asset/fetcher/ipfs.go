@@ -7,12 +7,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Filecoin-Titan/titan/api/types"
 	"github.com/ipfs/go-cid"
 	httpapi "github.com/ipfs/go-ipfs-http-client"
 	"github.com/ipfs/go-libipfs/blocks"
 	logging "github.com/ipfs/go-log/v2"
 	"github.com/ipfs/interface-go-ipfs-core/path"
-	"github.com/linguohua/titan/api/types"
 )
 
 var log = logging.Logger("asset/fetcher")

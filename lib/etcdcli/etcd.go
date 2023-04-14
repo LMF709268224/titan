@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/linguohua/titan/api/types"
-	"github.com/linguohua/titan/node/modules/dtypes"
+	"github.com/Filecoin-Titan/titan/api/types"
+	"github.com/Filecoin-Titan/titan/node/modules/dtypes"
 
 	"go.etcd.io/etcd/clientv3"
 	"golang.org/x/xerrors"

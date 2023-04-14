@@ -4,11 +4,11 @@ import (
 	"context"
 	"testing"
 
+	"github.com/Filecoin-Titan/titan/node/asset"
+	"github.com/Filecoin-Titan/titan/node/asset/fetcher"
+	"github.com/Filecoin-Titan/titan/node/asset/storage"
 	"github.com/ipfs/go-cid"
 	"github.com/ipfs/interface-go-ipfs-core/path"
-	"github.com/linguohua/titan/node/asset"
-	"github.com/linguohua/titan/node/asset/fetcher"
-	"github.com/linguohua/titan/node/asset/storage"
 )
 
 func TestGateway(t *testing.T) {

@@ -1,8 +1,8 @@
 package dtypes
 
 import (
+	"github.com/Filecoin-Titan/titan/node/config"
 	"github.com/ipfs/go-datastore"
-	"github.com/linguohua/titan/node/config"
 )
 
 // MetadataDS stores metadata.

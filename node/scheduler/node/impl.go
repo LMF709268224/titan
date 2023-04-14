@@ -1,7 +1,7 @@
 package node
 
 import (
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 )
 
 // NodesQuit nodes quit and removes their replicas

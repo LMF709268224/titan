@@ -4,16 +4,16 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/linguohua/titan/lib/rpcenc"
+	"github.com/Filecoin-Titan/titan/lib/rpcenc"
 
-	"github.com/linguohua/titan/api"
-	"github.com/linguohua/titan/metrics/proxy"
+	"github.com/Filecoin-Titan/titan/api"
+	"github.com/Filecoin-Titan/titan/metrics/proxy"
 
 	"github.com/filecoin-project/go-jsonrpc"
 	"github.com/filecoin-project/go-jsonrpc/auth"
 
+	"github.com/Filecoin-Titan/titan/node/handler"
 	"github.com/gorilla/mux"
-	"github.com/linguohua/titan/node/handler"
 )
 
 func EdgeHandler(authv func(ctx context.Context, token string) ([]auth.Permission, error), a api.Edge, permissioned bool) http.Handler {

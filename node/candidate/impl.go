@@ -3,17 +3,17 @@ package candidate
 import (
 	"context"
 
-	"github.com/linguohua/titan/node/asset"
-	"github.com/linguohua/titan/node/config"
+	"github.com/Filecoin-Titan/titan/node/asset"
+	"github.com/Filecoin-Titan/titan/node/config"
 	"go.uber.org/fx"
 
-	"github.com/linguohua/titan/api"
-	"github.com/linguohua/titan/node/common"
-	"github.com/linguohua/titan/node/device"
-	datasync "github.com/linguohua/titan/node/sync"
+	"github.com/Filecoin-Titan/titan/api"
+	"github.com/Filecoin-Titan/titan/node/common"
+	"github.com/Filecoin-Titan/titan/node/device"
+	datasync "github.com/Filecoin-Titan/titan/node/sync"
 
+	vd "github.com/Filecoin-Titan/titan/node/validation"
 	logging "github.com/ipfs/go-log/v2"
-	vd "github.com/linguohua/titan/node/validation"
 )
 
 var log = logging.Logger("candidate")

@@ -13,7 +13,7 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/linguohua/titan/build"
+	"github.com/Filecoin-Titan/titan/build"
 )
 
 func TestManageFdLimit(t *testing.T) {

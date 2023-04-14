@@ -3,8 +3,8 @@ package locator
 import (
 	"testing"
 
-	"github.com/linguohua/titan/api/types"
-	"github.com/linguohua/titan/lib/etcdcli"
+	"github.com/Filecoin-Titan/titan/api/types"
+	"github.com/Filecoin-Titan/titan/lib/etcdcli"
 )
 
 func TestEtcd(t *testing.T) {

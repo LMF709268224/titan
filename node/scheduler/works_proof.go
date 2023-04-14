@@ -4,9 +4,9 @@ import (
 	"context"
 	"crypto"
 
-	"github.com/linguohua/titan/api/types"
-	"github.com/linguohua/titan/node/cidutil"
-	titanrsa "github.com/linguohua/titan/node/rsa"
+	"github.com/Filecoin-Titan/titan/api/types"
+	"github.com/Filecoin-Titan/titan/node/cidutil"
+	titanrsa "github.com/Filecoin-Titan/titan/node/rsa"
 	"golang.org/x/xerrors"
 )
 

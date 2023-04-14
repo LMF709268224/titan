@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/filecoin-project/go-jsonrpc/auth"
-	"github.com/linguohua/titan/api/types"
+	"github.com/Filecoin-Titan/titan/api/types"
 )
 
 // Scheduler is an interface for scheduler

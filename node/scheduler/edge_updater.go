@@ -3,9 +3,9 @@ package scheduler
 import (
 	"context"
 
-	"github.com/linguohua/titan/node/scheduler/db"
+	"github.com/Filecoin-Titan/titan/node/scheduler/db"
 
-	"github.com/linguohua/titan/api"
+	"github.com/Filecoin-Titan/titan/api"
 )
 
 // EdgeUpdateManager manages information about edge node updates.

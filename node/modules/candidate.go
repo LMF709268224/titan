@@ -3,10 +3,10 @@ package modules
 import (
 	"context"
 
-	"github.com/linguohua/titan/api"
-	"github.com/linguohua/titan/node/asset/fetcher"
-	"github.com/linguohua/titan/node/candidate"
-	"github.com/linguohua/titan/node/config"
+	"github.com/Filecoin-Titan/titan/api"
+	"github.com/Filecoin-Titan/titan/node/asset/fetcher"
+	"github.com/Filecoin-Titan/titan/node/candidate"
+	"github.com/Filecoin-Titan/titan/node/config"
 	"go.uber.org/fx"
 )
 

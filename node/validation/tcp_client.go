@@ -7,8 +7,8 @@ import (
 	"io"
 	"net"
 
-	"github.com/linguohua/titan/api"
-	"github.com/linguohua/titan/lib/limiter"
+	"github.com/Filecoin-Titan/titan/api"
+	"github.com/Filecoin-Titan/titan/lib/limiter"
 	"golang.org/x/time/rate"
 )
 

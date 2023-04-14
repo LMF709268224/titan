@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/linguohua/titan/api/types"
-	"github.com/linguohua/titan/journal/alerting"
+	"github.com/Filecoin-Titan/titan/api/types"
+	"github.com/Filecoin-Titan/titan/journal/alerting"
 
 	"github.com/google/uuid"
 

@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"syscall"
 
-	"github.com/linguohua/titan/build"
+	"github.com/Filecoin-Titan/titan/build"
 
 	logging "github.com/ipfs/go-log/v2"
 )

@@ -27,4 +27,8 @@ As a last-mile focused CDN+, Titan can also serve as the outermost courier of Sa
  - Titan wants to leverage the computing power (CPU/GPU) of the Titan node cluster by running trusted containers and other methods to build trusted computing services.
  - Build sidechain capability, and as a sidechain of Filecoin to improve the TPS of Filecoin main chain.  As a **CDN+** focusing on the last mile, Titan is naturally close to the user, so if it has sidechain capability, Titan can aggregate user requests and use methods such as zk-rollups to improve the throughput of Filecion main chain.
 
-[scheduler doc](documentation/en/build_run_scheduler.md)
+## Building & Documentation
+
+[Build & Run scheduler](documentation/en/build_run_scheduler.md)
+[Build & Run nodes](documentation/en/build_run_nodes.md)
+[Documentation](documentation/)
